@@ -27,7 +27,7 @@
     left: 0;
     width: 100%; /* Make it the full width of the container */
     height: 50%; /* Adjust the height of the fade */
-    background: linear-gradient(to top, rgb(0, 0, 0, 1), rgba(255, 255, 255, 0)); /* Gradient that fades from white to transparent */
+    background: linear-gradient(to top, rgb(0, 0, 0, 1), rgba(255, 255, 255, 0)); 
 }
 
 
