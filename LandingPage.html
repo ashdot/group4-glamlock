@@ -7,14 +7,80 @@
     <link href="LandingPageStylesheet.css" rel="stylesheet" /> 
   </head>
   <body>
-    <div class="container" id="landing-img">
-        <img src="/Images/LandingPageBackground.jpg" alt="Background Image">
-    </div>
     <div class="container" id="signup-login">
         <div class="signup-login-container">
-            <button class="login-btn">LOG IN</button>
-            <a href="#create-account" class="create-account">CREATE AN ACCOUNT</a>
+            <button class="btn" id="login-btn">LOG IN</button>
+            <button class="btn" id="signup-btn">CREATE AN ACCOUNT</button>
         </div>
     </div>
+  <!--------------------Form box-------------------->
+  <div class="modal-backdrop" id="signupModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Create Account</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <!-- Registration form -->
+        <form action="#">
+          <div class="user-details">
+            <!-- Input for Full Name -->
+            <div class="input-box">
+              <span class="details">First Name</span>
+              <input type="text" placeholder="Enter your first name" required>
+            </div>
+            <!-- Input for Username -->
+            <div class="input-box">
+              <span class="details">Last Name</span>
+              <input type="text" placeholder="Enter your last name" required>
+            </div>
+            <!-- Input for Email -->
+            <div class="input-box">
+              <span class="details">Email</span>
+              <input type="text" placeholder="Enter your email" required>
+            </div>
+            <!-- Input for Phone Number -->
+            <div class="input-box">
+              <span class="details">Phone Number</span>
+              <input type="text" placeholder="Enter your number" required>
+            </div>
+            <!-- Input for Password -->
+            <div class="input-box">
+              <span class="details">Password</span>
+              <input type="text" placeholder="Enter your password" required>
+            </div>
+            <!-- Input for Confirm Password -->
+            <div class="input-box">
+              <span class="details">Confirm Password</span>
+              <input type="text" placeholder="Confirm your password" required>
+            </div>
+          </div>
+          <div class="account-type">
+            <!-- Radio buttons for account type selection -->
+            <input type="radio" name="accountType" id="dot-1">
+            <input type="radio" name="accountType" id="dot-2">
+            <span class="accountType-title">Account Type</span>
+            <div class="category">
+              <!-- Label for Makeup Artist -->
+              <label for="dot-1">
+                <span class="dot one"></span>
+                <span class="accountType">Makeup Artist</span>
+              </label>
+              <!-- Label for Client -->
+              <label for="dot-2">
+                <span class="dot two"></span>
+                <span class="accountType">Client</span>
+              </label>
+            </div>
+          </div>
+          <!-- Submit button -->
+          <div class="button">
+            <input type="submit" value="Create Account">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="Landing.js"></script>
   </body>
 </html>
