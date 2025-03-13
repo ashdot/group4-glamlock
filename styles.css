@@ -1,0 +1,135 @@
+/* General Styles */
+body {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    color: #333;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation Bar */
+.nav-bar {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px;
+    background-color: #222;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-btn {
+    background-color: #998100;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.nav-btn:hover {
+    background-color: #715e00;
+}
+
+/* Container Styles */
+.container {
+    background-color: #fff;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Time Section */
+.container-time {
+    background-color: #222;
+    color: #fff;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.heading {
+    font-size: 28px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.heading-days {
+    color: #ffcc00;
+    font-size: 22px;
+    margin: 10px 0;
+}
+
+.heading-phone {
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+/* Form Styling */
+.container-form {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.form-field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    max-width: 400px;
+}
+
+.form-field label {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+input, select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.btn {
+    background-color: #ffcc00;
+    color: #333;
+    padding: 12px 25px;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn:hover {
+    background-color: #e6b800;
+    transform: scale(1.05);
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+    .form-field {
+        max-width: 100%;
+    }
+}
