@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,600,700,900" rel="stylesheet">
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="nav-bar">
+        <button class="nav-btn">Feedback & Ratings</button>
+        <button class="nav-btn">View Portfolio</button>
+        <button class="nav-btn">Book Appointment</button>
+        <button class="nav-btn">Book Consultation</button>
+    </div>
+
+    <div class="container">
+        <div class="container-time">
+            <h2 class="heading">Available Hours</h2>
+            <h3 class="heading-days">Monday - Friday</h3>
+            <p>9am - 6pm</p>
+            <h3 class="heading-days">Saturday</h3>
+            <p>10am - 4pm</p>
+            <h3 class="heading-days">Sunday</h3>
+            <p>Closed</p>
+            <hr>
+            <h4 class="heading-phone">Call Us: (123) 456-7890</h4>
+        </div>
+        <div class="container-form">
+            <form action="/appoint" method="POST">
+                <h2 class="heading heading-yellow">Book Appointment</h2>
+                <div class="form-field">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-field">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-field">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required>
+                </div>
+                <div class="form-field">
+                    <label for="artist">Select Makeup Artist</label>
+                    <select id="artist" name="artist" required>
+                        <option value="">Choose an Artist</option>
+                        <option value="artist1">Tanya Smith</option>
+                        <option value="artist2">Ashlee Mire</option>
+                        <option value="artist3">Taylor Brown</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="timeslot">Select Available Date & Timeslot</label>
+                    <select id="timeslot" name="timeslot" required>
+                        <option value="">Choose a Slot</option>
+                        <option value="slot1">March 20 - 10:00 AM</option>
+                        <option value="slot2">March 21 - 2:00 PM</option>
+                        <option value="slot3">March 22 - 11:30 AM</option>
+                        <option value="slot4">March 23 - 3:00 PM</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="service">Service Type</label>
+                    <input type="text" id="service" name="service" value="Consultation" readonly>
+                </div>
+                <button type="submit" class="btn">Book Now</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
