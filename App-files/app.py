@@ -85,7 +85,7 @@ def addAccount():
 
         try:
             # These operations must be inside the POST block
-            new_user.createAccount()
+            new_user.createNewAccount()
             flash('Account created successfully!', 'success')
         except Exception as e:
             db.session.rollback()
@@ -105,11 +105,7 @@ def addAppointment():
         artist = request.form['artist']
         timeslot = request.form['timeslot']
         service = request.form['service']
-
-
-
-        
-        
+     
         # Create new booking
         new_booking = Booking(client_name=name, email=email, phone=phone, artist_name=artist, timeslot=timeslot, service=service)
         

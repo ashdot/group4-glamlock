@@ -5,7 +5,7 @@
   }
   
   body{
-      background: url("/Images/LandingPageBackground.jpg");
+      background: url("Images/LandingPageBackground.jpg");
       background-size: cover;
       background-repeat: no-repeat;
       background-attachment: fixed;

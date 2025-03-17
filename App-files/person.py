@@ -31,6 +31,9 @@ class Person(db.Model):
             self.password = password
         db.session.commit()
 
-    def createAccount(self):
+    def createNewAccount(self):
         db.session.add(self) #used chatgpt 
         db.session.commit() 
+
+    def validateUserDetails(self):
+        pass
