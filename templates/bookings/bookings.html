@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>My Bookings</h2>
+  {% if bookings %}
+    <div class="list-group">
+      {% for booking in bookings %}
+        <div class="list-group-item mb-3">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h5 class="mb-1">{{ booking.service_type|title }} Booking</h5>
+              <small class="text-muted">Status: 
+                <span class="badge 
+                  {% if booking.status == 'pending' %}bg-warning
+                  {% elif booking.status == 'confirmed' %}bg-success
+                  {% elif booking.status == 'completed' %}bg-secondary
+                  {% else %}bg-info{% endif %}">
+                  {{ booking.status|title }}
+                </span>
+              </small>
+            </div>
+            <div>
+              <small>{{ booking.datetime.strftime('%d %b %Y, %I:%M %p') }}</small>
+            </div>
+          </div>
+          <div class="mt-2">
+            <p class="mb-1">
+              <strong>Artist:</strong> 
+              {{ booking.artist.user.first_name }} {{ booking.artist.user.last_name }}
+              <span class="text-muted">({{ booking.artist.specialization }})</span>
+            </p>
+            {% if booking.notes %}
+              <p class="mb-0"><strong>Notes:</strong> {{ booking.notes }}</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      No bookings found. <a href="{{ url_for('bookings.book_appointment') }}">Book one now!</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

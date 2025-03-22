@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Edit Booking</h2>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    
+    <div class="mb-3">
+      {{ form.status.label(class="form-label") }}
+      {{ form.status(class="form-select") }}
+    </div>
+    
+    <div class="mb-3">
+      {{ form.datetime.label(class="form-label") }}
+      {{ form.datetime(class="form-control") }}
+    </div>
+    
+    <div class="mb-3">
+      {{ form.notes.label(class="form-label") }}
+      {{ form.notes(class="form-control", rows=4) }}
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Update Booking</button>
+    <a href="{{ url_for('bookings.artist_bookings') }}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

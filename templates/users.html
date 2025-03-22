@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Registered Users</h2>
+<ul>
+    {% for user in users %}
+    <li>
+        {{ user.id }} - {{ user.email }} 
+        (Verified: {{ user.verified }})
+        <br>
+        {% if user.client_profile %}
+            Client: {{ user.client_profile.phone }}
+        {% elif user.artist_profile %}
+            Artist: {{ user.artist_profile.specialization }}
+        {% endif %}
+    </li>
+    {% else %}
+    <li>No users found</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,21 @@
+<!-- templates/home.html -->
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Welcome to Glam Lock JA</h2>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Consultation</h5>
+          <a href="{{ url_for('bookings.book_appointment') }}" class="btn btn-primary">Book Now</a>
+        </div>
+      </div>
+    </div>
+    <!-- Add more service cards as needed -->
+  </div>
+</div>
+{% endblock %}
