@@ -24,7 +24,8 @@ class Consultation:
         db.session.commit() 
 
     def updatePreferences(self,preferences):
-        self.preferences = preferences 
+        self.preferences = preferences
+        db.session.commit()
 
     def viewPreferences(self):
         return self.preferences
