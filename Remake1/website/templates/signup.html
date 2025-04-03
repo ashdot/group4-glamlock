@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<form method="POST">
+    <h3 align="center">Signup</h3>
+
+    <div class="form-group">
+        <!-- First Name -->
+        <label for="firstName">First Name</label>
+        <input 
+            type="text" 
+            id="firstName" 
+            name="firstName" 
+            class="form-control" 
+            placeholder="Enter first name" required/>
+
+        <!-- Last Name -->
+        <label for="lastName">Last Name</label>
+        <input 
+            type="text" 
+            id="lastName" 
+            name="lastName" 
+            class="form-control" 
+            placeholder="Enter last name" required />
+
+        <!-- Email -->
+        <label for="email">Email</label>
+        <input 
+            type="text" 
+            id="email" 
+            name="email" 
+            class="form-control" 
+            placeholder="Enter Email" required/>
+
+        <!-- Password -->
+        <label for="password">Password</label>
+        <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            class="form-control" 
+            placeholder="Enter Password" required/>
+
+        <!-- Confirm Password -->
+        <label for="password2">Confirm Password</label>
+        <input 
+            type="password" 
+            id="password2" 
+            name="password2" 
+            class="form-control" 
+            placeholder="Enter Password again" required/>
+
+        <!-- Account Type -->
+        <label for="accountType">Account Type :</label>
+        <br/>
+        <select name="accountType" required>
+            <option value="" disabled selected>Select account type</option>
+            <option value="makeupArtist">Makeup Artist</option>
+            <option value="client">Client</option>
+        </select>
+        <br/>
+
+        <!-- Submit Button -->
+        <div align="center">
+            <button class="btn btn-primary" type="submit">Signup</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
