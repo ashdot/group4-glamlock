@@ -1,7 +1,5 @@
+from database import db
 
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
 
 
 class Person(db.Model):
@@ -11,15 +9,17 @@ class Person(db.Model):
     lastName = db.Column(db.String(25), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(20), nullable=False)
+    phone = db.Column(db.String(20),nullable=False)
 
-    def __init__(self, firstName, lastName, email, password):
+    def __init__(self, firstName, lastName, email, password, phone):
 
         self.firstName =  firstName
         self.lastName = lastName 
         self.email = email 
-        self.password = password 
+        self.password = password
+        self.phone = phone  
 
-    def updateProfile(self, firstName=None, lastName=None, email=None, password=None):
+    def updateProfile(self, firstName=None, lastName=None, email=None, password=None, phone=None):
 
         if firstName: # used chatgpt 
             self.firstName = firstName
@@ -29,6 +29,9 @@ class Person(db.Model):
             self.email = email
         if password:
             self.password = password
+
+        if phone:
+            self.phone = phone
         db.session.commit()
 
     def createNewAccount(self):

@@ -31,39 +31,17 @@ with app.app_context():
 
 @app.route('/')
 def test():
-    return render_template('test.html')
+    return render_template('signup.html')
 
-"""
-@app.route('/signup', methods =['GET', 'POST'])
-def addAccount():
-    #msg = ''
-    if request.method == 'POST':
-        firstName = request.form['firstName']
-        lastName = request.form['lastName']
-        email = request.form['email']
-        phone = request.form['phoneNumber']
+@app.route('/login', methods=['POST'])
+def login():
+    if request.method == ['POST']:
+        user = request.form['email']
         password = request.form['password']
-        password2 = request.form['password2']
 
-        nameType = request.form['nameType']
+    pass
 
 
-        if password != password2 :
-            flash('Passwords do not match. Please try again.', 'error')
-            return redirect(url_for('test')) 
-            
-        new_user = Person(firstName=firstName,lastName=lastName,email=email,password=password)
-
-        #if nameType == "MakeupArtist":
-            #new_user = MakeupArtist(person)
-        
-        #if nameType == "Customer":
-            #new_user = Customer(person)
-
-    
-    new_user.createAccount()
-    flash('Account created successfully!', 'success')
-    return redirect(url_for('test')) """
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -79,9 +57,33 @@ def addAccount():
 
         if password != password2:
             flash('Passwords do not match. Please try again.', 'error')
-            return redirect(url_for('test'))
+            return redirect(url_for('signup'))
             
-        new_user = Person(firstName=firstName, lastName=lastName, email=email, password=password)
+        new_user = Person(firstName=firstName, lastName=lastName, email=email, password=password, phone=phone)
+
+        if nameType == 'Customer':
+            new_user = Customer(
+                firstName=firstName,
+                lastName=lastName,
+                email=email,
+                password=password,
+                phone = phone, 
+
+                customerId = None,
+                skinType= None,
+            )
+        
+        if nameType == 'MakeupArtist':
+            new_user = MakeupArtist(
+                firstName=firstName,
+                lastName=lastName,
+                email=email,
+                password=password,
+                phone = phone, 
+                artistId =  None,
+                specialization = None, 
+                availability = None,
+            )
 
         try:
             # These operations must be inside the POST block
@@ -94,7 +96,7 @@ def addAccount():
         return redirect(url_for('addAccount'))
     
     # Return template for GET requests
-    return render_template('test.html')  # Adjust template name as needed
+    return render_template('signup.html')  # Adjust template name as needed
 
 @app.route('/appoint', methods=['GET', 'POST'])
 def addAppointment():
@@ -118,65 +120,6 @@ def addAppointment():
     return render_template('appoint.html')
 
 
-"""
-     
-@app.route('/appoint', methods=['GET', 'POST'])
-def bookAppointment():
-    if request.method == 'POST':
-        try:
-            # Get form data with validation
-            name = request.form.get('name')
-            email = request.form.get('email')
-            phone = request.form.get('phone')
-            artist = request.form.get('artist')
-            timeslot = request.form.get('timeslot')
-            service = request.form.get('service')
-            
-            # Basic validation
-            if not all([name, email, phone, artist, timeslot, service]):
-                flash("All fields are required", "error")
-                # Replace 'appointment_page' with your actual route function name
-                return redirect(url_for('appoint'))
-                
-            # Check if an appointment already exists for this artist and timeslot
-            existing_booking = Booking.query.filter_by(artist_name=artist, timeslot=timeslot).first()
-            
-            if existing_booking:
-                flash("This timeslot is already booked for the selected artist. Please choose another time.", "error")
-                return redirect(url_for('appoint'))
-            
-            # Create new booking
-            new_booking = Booking(
-                client_name=name,
-                email=email,
-                phone=phone,
-                artist_name=artist,
-                timeslot=timeslot,
-                service=service
-            )
-            
-            # Use a try-except block around database operations
-            try:
-                db.session.add(new_booking)
-                db.session.commit()
-                # Only call scheduleBooking after successfully adding to database
-                new_booking.scheduleBooking()
-                flash("Appointment booked successfully!", "success")
-            except Exception as e:
-                db.session.rollback()
-                flash(f"Error booking appointment: {str(e)}", "error")
-                
-            return redirect(url_for('appoint'))
-            
-        except Exception as e:
-            flash(f"An unexpected error occurred: {str(e)}", "error")
-            return redirect(url_for('appoint'))
-            
-    # If GET request, redirect to appointment page
-    return redirect(url_for('appoint')) """
-     
-
-
      #wanted to add smt where if they book depending on the service it would create either a Consultation or a Appointment 
 
 
@@ -192,7 +135,15 @@ def show_bookings():
     bookings = Booking.query.all()
     return render_template('bookings.html', bookings=bookings)
 
+@app.route('/show-customers')
+def show_customers():
+    customers = Customer.query.all()
+    return render_template('customers.html',customers=customers)
 
+@app.route('/show-artists')
+def show_artist():
+    artists = MakeupArtist.query.all()
+    return render_template('artists.html',artists=artists)
 
 
 
