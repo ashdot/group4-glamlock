@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user
-from models import User, Client, Artist
+from models import User, Client, Artist, Portfolio
 from forms import RegistrationForm, LoginForm
 from utils import send_verification_email
 from extensions import db, bcrypt
@@ -35,8 +35,14 @@ def register():
                 user.client_profile = profile
                 print("Client profile:", profile)
             else:
+
+                portfolio = None
+
                 profile = Artist(
-                    specialization=form.specialization.data
+                    specialization=form.specialization.data,
+                    experience = None,
+                    availability= None,
+                    portfolio= portfolio,
                 )
                 user.artist_profile = profile
                 print("Artist profile:", profile)
