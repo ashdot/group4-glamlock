@@ -13,9 +13,52 @@
           <h5 class="card-title">Consultation</h5>
           <a href="{{ url_for('bookings.book_appointment') }}" class="btn btn-primary">Book Now</a>
         </div>
+        
       </div>
     </div>
+
+     <!-- Portfolio Card visible only if the current user is an artist -->
+     {% if current_user.artist_profile %}
+     <div class="col-md-4">
+       <div class="card">
+         <div class="card-body">
+           <h5 class="card-title">My Portfolio</h5>
+           <!-- Display portfolio information if it exists -->
+           {% if current_user.artist_profile.portfolio %}
+             <p>Portfolio Name: {{ current_user.artist_profile.portfolio.portfolioName }}</p>
+             <p>Description: {{ current_user.artist_profile.portfolio.description }}</p>
+             <a href="{{ current_user.artist_profile.portfolio.url }}" class="btn btn-primary">View Portfolio</a>
+
+             <a href="{{ url_for('home') }}" class="btn btn-primary">Update Portfolio</a>
+           {% else %}
+             <p>No portfolio available yet. Please upload your work!</p>
+             <a href="{{ url_for('home') }}" class="btn btn-primary">Create Portfolio</a>
+           {% endif %}
+         </div>
+       </div>
+     </div>
+   {% endif %}
+
+
+
+     <!-- Publish Event Card visible only if the current user is an artist -->
+     {% if current_user.artist_profile %}
+     <div class="col-md-4">
+       <div class="card">
+         <div class="card-body">
+           <h5 class="card-title">Event Management</h5>
+             <a href="{{ url_for('home') }}" class="btn btn-primary">Create Event</a>
+             <a href="{{ url_for('home') }}" class="btn btn-primary">Update/Edit Event</a>
+         </div>
+       </div>
+     </div>
+   {% endif %}
+
+
+
     <!-- Add more service cards as needed -->
+
+
   </div>
 </div>
 {% endblock %}

@@ -44,6 +44,7 @@
                     
                     {% if current_user.user_type == 'artist' %}
                         <a class="nav-item nav-link" href="{{ url_for('bookings.artist_bookings') }}">My Bookings</a>
+                        <a class="nav-item nav-link" href="">Events</a>
                     {% else %}
                         <a class="nav-item nav-link" href="{{ url_for('bookings.view_bookings') }}">My Bookings</a>
                     {% endif %}
