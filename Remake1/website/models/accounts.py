@@ -2,8 +2,10 @@ from flask import flash
 from .. import db 
 from flask_login import  UserMixin
 #from sql_alchemy.sql import func 
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class UserAccount(db.Model,UserMixin):
+    __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)  # Primary Key
     firstName = db.Column(db.String(25), nullable=False)
@@ -11,7 +13,8 @@ class UserAccount(db.Model,UserMixin):
     phone = db.Column(db.String(20),nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(20), nullable=False)
-    accountType = db.Column(db.String(20), nullable=False)
+    #password_hash = db.Column(db.String(128), nullable=False)
+    accountType = db.Column(db.String(20), nullable=False) #Customer or Artist 
 
 
     def __init__(self,firstName,lastName,email,phone,password,accountType):
@@ -36,29 +39,33 @@ class UserAccount(db.Model,UserMixin):
         elif len(password1) < 8 :
             flash('Password is too short', catergory ='error')
 
+    def check_password(self, password): #TAKEN FROM CHATGPT
+        return check_password_hash(self.password_hash, password)
+
+        
     
-    def createArtistAccount(self, firstName, lastName, email, phone, password ,accountType):
-        if accountType == "makeupArtist":
-            Artist = ArtistAccount() #Create an Artist Object and store it in Artist database Table
-        pass 
-
-
-    def createCustomerAccount(self, firstName, lastName, email, phone, password, accountType):
-        if accountType == "client":
-            Customer = CustomerAccount() #Creates a Customer Object and stores it in Customer database Table 
-        pass
+    def createAccount(self,user):
+        db.session.add(user)
+        db.session.commit()
+   
         
 
 
 
 class ArtistAccount(UserAccount):
+    __tablename__ = 'artists'
+
+    id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    portfolio_url = db.Column(db.String(256))
+
+    def __init__(self,firstName,lastName,email,phone,password):
+
+        super().__init__(firstName,lastName,email,phone,password,accountType='makeupArtist')
 
 
 
-
-    def __init__(self,firstName,lastName,email,phone,password,accountType):
-
-        super().__init__(firstName,lastName,email,phone,password,accountType)
+    def set_portfolio(self, url):
+        self.portfolio_url = url
 
 
     pass
@@ -67,9 +74,11 @@ class ArtistAccount(UserAccount):
 
 
 class CustomerAccount(UserAccount):
+    __tablename__ = 'customers'
 
+    id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
 
-    def __init__(self,firstName,lastName,email,phone,password,accountType):
-        super().__init__(firstName,lastName,email,phone,password,accountType)
+    def __init__(self,firstName,lastName,email,phone,password):
+        super().__init__(firstName,lastName,email,phone,password,accountType='client')
         
     pass 
