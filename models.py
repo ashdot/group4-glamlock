@@ -49,10 +49,34 @@ class Artist(db.Model):
     specialization = db.Column(db.String(100))
     experience = db.Column(db.Integer)
     availability = db.Column(db.Boolean, default=True)
+   
     
     # Relationships
     user = db.relationship('User', back_populates='artist_profile')
     artist_bookings = db.relationship('Booking', back_populates='artist', lazy=True)
+
+
+    #One Artist has One Porftolio 
+    portfolio = db.relationship('Portfolio', back_populates='artist', uselist=False, cascade='all, delete-orphan')
+
+
+
+    def __init__(self, specialization, experience, availability, portfolio):
+        self.specialization = specialization
+        self.experience = experience
+        self.availability = availability 
+        self.portfolio = portfolio #references the portfolio class 
+
+    def show_artist_info(self):
+        print(f"Specialization: {self.specialization}")
+        print(f"Experience: {self.experience} years")
+        if self.portfolio:
+            print("Portfolio Details:")
+            self.portfolio.showPortfolio()
+        else:
+            print("No portfolio available.")
+
+    
 
 class Client(db.Model):
     id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
@@ -75,3 +99,111 @@ class Booking(db.Model):
     # Relationships
     client = db.relationship('User', foreign_keys=[user_id], back_populates='client_bookings')
     artist = db.relationship('Artist', foreign_keys=[artist_id], back_populates='artist_bookings')
+
+
+class Portfolio(db.Model):
+    __tablename__ = 'portfolio'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    portfolioName = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    url = db.Column(db.String(200), nullable=True)
+
+    #Connection to Artist Table 
+    artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'))
+    
+    #Relationship to Artist 
+    artist = db.relationship('Artist', back_populates='portfolio')
+
+    def __init__(self, portfolioName, description,url):
+        self.portfolioName = portfolioName
+        self.description = description 
+        self.url = url 
+
+    
+    def updatePortfolio(self, portfolioName, url, description):
+        self.portfolioName = portfolioName
+        self.url = url
+        self.description = description 
+
+    def removePortfolio(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def showPortfolio(self):
+        print(f"Portfolio Name: {self.portfolioName}")
+        print(f"Description: {self.description}")
+        print(f"Portfolio URL: {self.url}")
+
+
+class Event(db.Model):
+    _tablename_ = 'event'
+    
+    eventId = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    start_time = db.Column(db.String(30), nullable=False)  
+    end_time = db.Column(db.String(30), nullable=False)    
+    location = db.Column(db.String(120), nullable=True)
+    artist_name = db.Column(db.String(50), nullable=False) 
+    client_email = db.Column(db.String(50), nullable=True) 
+    event_type = db.Column(db.String(30), nullable=False)  
+    
+    def _init_(self, title, description, start_time, end_time, location, artist_name, event_type, client_email=None):
+        self.title = title
+        self.description = description
+        self.start_time = start_time
+        self.end_time = end_time
+        self.location = location
+        self.artist_name = artist_name
+        self.event_type = event_type
+        self.client_email = client_email
+    
+    def createEvent(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    def updateEvent(self, title=None, description=None, start_time=None, end_time=None, 
+                    location=None, artist_name=None, event_type=None, client_email=None):
+        if title:
+            self.title = title
+        if description:
+            self.description = description
+        if start_time:
+            self.start_time = start_time
+        if end_time:
+            self.end_time = end_time
+        if location:
+            self.location = location
+        if artist_name:
+            self.artist_name = artist_name
+        if event_type:
+            self.event_type = event_type
+        if client_email is not None:  
+            self.client_email = client_email
+        
+        db.session.commit()
+    
+    def cancelEvent(self):
+        db.session.delete(self)
+        db.session.commit()
+    
+    def checkTimeConflict(self, artist_name, start_time, end_time):
+        """Check if there's a time conflict for the artist"""
+        conflicts = Event.query.filter(
+            Event.artist_name == artist_name,
+            Event.eventId != self.eventId,  
+            ((Event.start_time <= start_time) & (Event.end_time > start_time)) |  
+            ((Event.start_time < end_time) & (Event.end_time >= end_time)) |      
+            ((Event.start_time >= start_time) & (Event.end_time <= end_time))     
+        ).all()
+        
+        return len(conflicts) > 0
+    
+    @staticmethod
+    def getEventsByArtist(artist_name):
+        return Event.query.filter_by(artist_name=artist_name).all()
+    
+    @staticmethod
+    def getEventsByClient(client_email):
+        return Event.query.filter_by(client_email=client_email).all()
