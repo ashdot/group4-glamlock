@@ -42,7 +42,7 @@ def create_app():
 
     # Database setup
     with app.app_context():
-        from models import User, Artist, Client, Booking
+        from models import User, Artist, Client, Booking, Portfolio
         db.create_all()
 
     # Core routes
