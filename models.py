@@ -223,7 +223,6 @@ class Consultation(db.Model):
     datetime = db.Column(db.DateTime, nullable=False)
     preferences = db.Column(db.Text, nullable=True)
     confirmed = db.Column(db.Boolean, default=False)
-    datetime = db.Column(db.DateTime, nullable=False)
     notes = db.Column(db.Text)
 
     client = db.relationship('User', foreign_keys=[user_id], back_populates ='client_consultation')
