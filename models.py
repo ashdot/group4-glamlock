@@ -224,6 +224,7 @@ class Consultation(db.Model):
     preferences = db.Column(db.Text, nullable=True)
     confirmed = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    notes = db.Column(db.Text)
 
     client = db.relationship('User', foreign_keys=[user_id], back_populates ='client_consultation')
     artist = db.relationship('Artist',foreign_keys=[artist_id],  back_populates ='artist_consultation')
