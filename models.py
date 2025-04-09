@@ -220,7 +220,7 @@ class Consultation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'), nullable=False)
-    datetime = db.Column(db.DateTime, nullable=False)
+    time = db.Column(db.DateTime, nullable=False)
     preferences = db.Column(db.Text, nullable=True)
     confirmed = db.Column(db.Boolean, default=False)
     notes = db.Column(db.Text)
