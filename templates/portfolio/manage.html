@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Manage Portfolio</h2>
+  
+  <!-- Add New Item Form -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          {{ form.image.label(class="form-label") }}
+          {{ form.image(class="form-control") }}
+        </div>
+        <div class="mb-3">
+          {{ form.description.label(class="form-label") }}
+          {{ form.description(class="form-control", rows=3) }}
+        </div>
+        <button type="submit" class="btn btn-primary">Add Item</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Existing Items Grid -->
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for item in items %}
+    <div class="col">
+      <div class="card h-100">
+        <img src="{{ url_for('static', filename='uploads/' + item.image_url) }}" 
+             class="card-img-top" 
+             alt="Portfolio item">
+        <div class="card-body">
+          <p class="card-text">{{ item.description }}</p>
+          <form method="POST" action="{{ url_for('portfolio.delete_item', item_id=item.id) }}">
+            <button type="submit" class="btn btn-danger btn-sm" 
+                    onclick="return confirm('Delete this item?')">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+      <div class="alert alert-info">No portfolio items yet. Add your first one!</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

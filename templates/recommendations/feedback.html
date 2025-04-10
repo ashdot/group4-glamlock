@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Feedback - {{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Feedback for {{ product.name }}</h2>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+      {{ form.rating.label(class="form-label") }}
+      {{ form.rating(class="form-select") }}
+    </div>
+    <div class="mb-3">
+      {{ form.comments.label(class="form-label") }}
+      {{ form.comments(class="form-control", rows=3) }}
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+{% endblock %}

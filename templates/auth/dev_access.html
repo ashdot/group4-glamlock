@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Developer Access{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">Developer Access</h3>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="mb-4">Choose a role to login as:</h5>
+          <div class="d-grid gap-3">
+            <a href="{{ url_for('auth.dev_login_as', role='artist') }}" 
+               class="btn btn-lg btn-outline-primary">
+              Login as Artist
+            </a>
+            <a href="{{ url_for('auth.dev_login_as', role='client') }}" 
+               class="btn btn-lg btn-outline-primary">
+              Login as Client
+            </a>
+          </div>
+          <div class="mt-4 text-muted">
+            <small>Demo password: <code>demo_password</code></small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

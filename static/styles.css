@@ -1,0 +1,62 @@
+/* Add these styles to fix form fields */
+.form-field {
+    margin-bottom: 1.5rem;
+}
+
+.form-control {
+    height: 45px;
+    padding: 10px;
+    border: 2px solid #ecf0f1;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+select.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+/* Fix button styling */
+.btn-primary {
+    height: 50px;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.list-group-item {
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .badge {
+    font-size: 0.9em;
+    padding: 0.5em 0.75em;
+  }
+
+  .artist-card {
+    transition: transform 0.2s;
+    min-height: 400px;
+}
+
+.artist-card:hover {
+    transform: translateY(-5px);
+}
+
+.portfolio-image {
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.specialization-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.7);
+}
