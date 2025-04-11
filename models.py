@@ -20,6 +20,8 @@ class User(UserMixin, db.Model):
     client_profile = db.relationship('Client', back_populates='user', uselist=False, cascade='all, delete-orphan')
     artist_profile = db.relationship('Artist', back_populates='user', uselist=False, cascade='all, delete-orphan')
     client_bookings = db.relationship('Booking', back_populates='client', lazy=True)
+    
+    
 
     def set_password(self, password):
         self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
@@ -54,6 +56,8 @@ class Artist(db.Model):
     # Relationships
     user = db.relationship('User', back_populates='artist_profile')
     artist_bookings = db.relationship('Booking', back_populates='artist', lazy=True)
+    artist_consultation = db.relationship('Consultation', back_populates = 'artist', lazy = True)
+    
 
 
     #One Artist has One Porftolio 
@@ -79,11 +83,13 @@ class Artist(db.Model):
     
 
 class Client(db.Model):
+    __tablename__ = 'client'
     id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
     phone = db.Column(db.String(20))
     skin_type = db.Column(db.String(50))
     preferences = db.Column(db.Text)
     user = db.relationship('User', back_populates='client_profile')
+    client_consultation = db.relationship('Consultation', back_populates = 'client', lazy = True)
 
 class Booking(db.Model):
     __tablename__ = 'booking'
@@ -137,7 +143,7 @@ class Portfolio(db.Model):
 
 
 class Event(db.Model):
-    _tablename_ = 'event'
+    __tablename__ = 'event'
     
     eventId = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(120), nullable=False)
@@ -149,7 +155,7 @@ class Event(db.Model):
     client_email = db.Column(db.String(50), nullable=True) 
     event_type = db.Column(db.String(30), nullable=False)  
     
-    def _init_(self, title, description, start_time, end_time, location, artist_name, event_type, client_email=None):
+    def __init__(self, title, description, start_time, end_time, location, artist_name, event_type, client_email=None):
         self.title = title
         self.description = description
         self.start_time = start_time
@@ -207,3 +213,17 @@ class Event(db.Model):
     @staticmethod
     def getEventsByClient(client_email):
         return Event.query.filter_by(client_email=client_email).all()
+
+class Consultation(db.Model):
+    __tablename__ = 'consultations'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'), nullable=False)
+    time = db.Column(db.DateTime, nullable=False)
+    preferences = db.Column(db.Text, nullable=True)
+    confirmed = db.Column(db.Boolean, default=False)
+    notes = db.Column(db.Text)
+
+    client = db.relationship('User', foreign_keys=[user_id], back_populates ='client_consultation')
+    artist = db.relationship('Artist',foreign_keys=[artist_id],  back_populates ='artist_consultation')
