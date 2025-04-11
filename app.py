@@ -35,17 +35,17 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
-        from models import User
+        from models.models import User
         return db.session.get(User, int(user_id))
 
     # Register blueprints
-    from artists.routes import artists_bp
-    from auth.routes import auth_bp
-    from bookings.routes import bookings_bp
-    from events.routes import events_bp
-    from portfolio.routes import portfolio_bp
-    from products.routes import products_bp
-    from recommendations.routes import recommendations_bp
+    from operation.artists.routes import artists_bp
+    from operation.auth.routes import auth_bp
+    from operation.bookings.routes import bookings_bp
+    from operation.events.routes import events_bp
+    from operation.portfolio.routes import portfolio_bp
+    from operation.products.routes import products_bp
+    from operation.recommendations.routes import recommendations_bp
     app.register_blueprint(artists_bp, url_prefix='/artists')
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(bookings_bp, url_prefix='/bookings')
@@ -56,7 +56,7 @@ def create_app():
 
     # Database setup
     with app.app_context():
-        from models import User, Artist, Client, Booking, Portfolio
+        from models.models import User, Artist, Client, Booking, Portfolio
         db.create_all()
 
     # Core routes
