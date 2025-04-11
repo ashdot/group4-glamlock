@@ -13,9 +13,6 @@ def artist_portfolio():
     
 
     
-
-
-    
     
 
     

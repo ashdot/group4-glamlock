@@ -83,3 +83,8 @@ class EditBookingForm(FlaskForm):
         validators=[DataRequired()]
     )
     notes = TextAreaField('Notes')
+
+
+    #Make Portfolio Form 
+    #Make Publish Events Detail Form 
+    #Make 
