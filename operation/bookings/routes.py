@@ -1,7 +1,6 @@
 from flask import Blueprint, abort, current_app, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
 from models.models import User, db, Booking, Artist
-from datetime import datetime
 from forms.forms import BookingForm, EditBookingForm
 
 bookings_bp = Blueprint('bookings', __name__)

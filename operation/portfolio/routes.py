@@ -23,7 +23,7 @@ def create_portfolio():
     form = PortfolioForm()
     
     if form.validate_on_submit():
-        # Handle file upload
+        # Handles file upload
         if 'image' in request.files:
             file = request.files['image']
             if file and allowed_file(file.filename):
@@ -61,7 +61,7 @@ def create_portfolio():
         return redirect(url_for('portfolio.view_portfolio'))
     
     # Pre-populate form if portfolio exists
-    if artist.portfolio:  # This is now safe because we validated artist exists
+    if artist.portfolio: 
         form.name.data = artist.portfolio.portfolioName
         form.description.data = artist.portfolio.description
     

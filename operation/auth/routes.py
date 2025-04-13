@@ -1,6 +1,6 @@
 from flask import Blueprint, abort, current_app, render_template, redirect, request, url_for, flash
 from flask_login import login_user, logout_user
-from models.models import User, Client, Artist, Portfolio
+from models.models import User, Client, Artist
 from forms.forms import RegistrationForm, LoginForm
 from extensions import db, bcrypt
 
@@ -45,13 +45,11 @@ def register():
                 user.artist_profile = profile  # Link via relationship
                 print("Artist profile linked:", profile)
 
-            # No need to add profile explicitly; SQLAlchemy handles it via the relationship
-
             db.session.commit()  # Commit both user and profile together
             print("COMMIT SUCCESSFUL TO DATABASE")
             print(f"New User ID: {user.id}")
 
-            user.verified = True  # Auto-verify users
+            user.verified = True 
             flash('Account created successfully!', 'success')
             return redirect(url_for('home'))
 
@@ -104,7 +102,7 @@ def logout():
 
 @auth_bp.route('/dev/login', methods=['POST'])
 def dev_login():
-    if not current_app.config['DEV_MODE']: #Addes so developers could easily access app 
+    if not current_app.config['DEV_MODE']:
         abort(403)
         
     dev_key = request.form.get('dev_key')

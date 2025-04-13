@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, DateTimeLocalField, FloatField, StringField, PasswordField, SelectField, DateTimeField, SubmitField, TextAreaField
+from wtforms import BooleanField, DateTimeLocalField, FloatField, StringField, PasswordField, SelectField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, InputRequired, ValidationError
 from flask_wtf.file import FileField, FileAllowed
 
@@ -113,11 +113,3 @@ class PortfolioItemForm(FlaskForm):
     ])
     description = TextAreaField('Description')
     submit = SubmitField('Add to Portfolio')
-
-class FeedbackForm(FlaskForm):
-    rating = SelectField('Rating', choices=[
-        ('liked', '👍 Liked'), 
-        ('disliked', '👎 Disliked')
-    ], validators=[DataRequired()])
-    comments = TextAreaField('Comments')
-    submit = SubmitField('Submit Feedback')

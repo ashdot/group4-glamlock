@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import Blueprint, abort, current_app, render_template, redirect, request, url_for, flash
+from flask import Blueprint, abort, render_template, redirect, request, url_for, flash
 from flask_login import login_required, current_user
 from models.models import Event, db
 

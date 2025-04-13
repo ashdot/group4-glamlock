@@ -23,7 +23,7 @@ def manage_products():
 def create_product():
     form = ProductForm()
     if form.validate_on_submit():
-        # Handle file upload
+        # Handles file upload
         if 'image' not in request.files:
             flash('No file selected', 'danger')
             return redirect(request.url)
