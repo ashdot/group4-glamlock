@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">My Client Bookings</h2>
+  {% if bookings %}
+    <div class="row g-4">
+      {% for booking in bookings %}
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div>
+                <h5 class="card-title mb-1">{{ booking.service_type|title }} for {{ booking.client.first_name }}</h5>
+                <small class="text-muted">
+                  Status: 
+                  <span class="badge 
+                    {% if booking.status == 'pending' %}bg-warning
+                    {% elif booking.status == 'confirmed' %}bg-success
+                    {% elif booking.status == 'completed' %}bg-secondary
+                    {% else %}bg-info{% endif %}">
+                    {{ booking.status|title }}
+                  </span>
+                </small>
+              </div>
+              <div class="text-end">
+                <small>{{ booking.datetime.strftime('%d %b %Y, %I:%M %p') }}</small>
+                <div class="mt-2">
+                  <a href="{{ url_for('bookings.edit_booking', booking_id=booking.id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+                  <form method="POST" action="{{ url_for('bookings.delete_booking', booking_id=booking.id) }}" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <p class="mb-1"><strong>Client Details:</strong><br>
+              {{ booking.client.first_name }} {{ booking.client.last_name }}<br>
+              Phone: {{ booking.client.client_profile.phone }}<br>
+              Skin Type: {{ booking.client.client_profile.skin_type }}
+            </p>
+            {% if booking.notes %}
+            <p class="mb-0"><strong>Notes:</strong> {{ booking.notes }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      No upcoming bookings.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

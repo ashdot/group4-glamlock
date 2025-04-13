@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}Book Appointment{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <style>
+    .wrapper {
+      background: #fff;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .container-time {
+      background: #f8f9fa;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .container-form {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .heading {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+    .heading-yellow {
+      color: #310ff1;
+    }
+    .form-field {
+      margin-bottom: 25px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ecf0f1;
+      border-radius: 5px;
+      font-family: 'Raleway', sans-serif;
+      height: auto;
+    }
+    .btn-primary {
+      background: #310ff1;
+      border: none;
+      padding: 15px 30px;
+      font-weight: 600;
+      text-transform: uppercase;
+      width: 100%;
+      margin-top: 20px;
+    }
+    .btn-primary:hover {
+      background: #2812f3;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+  <div class="container mt-4">
+    <div class="row g-4">
+      <!-- Left Column - Available Hours -->
+      <div class="col-md-4">
+        <div class="container-time">
+          <h2 class="heading">Available Hours</h2>
+          <h3 class="heading-days">Monday - Friday</h3>
+          <p>9am - 6pm</p>
+          <h3 class="heading-days">Saturday</h3>
+          <p>10am - 4pm</p>
+          <h3 class="heading-days">Sunday</h3>
+          <p>Closed</p>
+          <hr>
+          <h4 class="heading-phone">Call Us: (876) 123-3456</h4>
+        </div>
+      </div>
+      
+      <!-- Right Column - Booking Form -->
+      <div class="col-md-8">
+        <div class="container-form">
+          <form method="POST">
+            {{ form.hidden_tag() }}
+            <h2 class="heading heading-yellow">Book Appointment</h2>
+  
+            <div class="form-field">
+              <label class="form-label">{{ form.service_type.label.text }}</label>
+              {{ form.service_type(class="form-control form-select") }}
+            </div>
+            
+            <div class="form-field">
+              <label class="form-label">{{ form.artist_id.label.text }}</label>
+              {{ form.artist_id(class="form-control form-select") }}
+            </div>
+  
+            <!-- Use datetime-local input for browser consistency -->
+            <div class="form-field">
+              <label class="form-label">{{ form.datetime.label.text }}</label>
+              {{ form.datetime(class="form-control", type="datetime-local") }}
+            </div>
+  
+            <div class="form-field">
+              <label class="form-label">{{ form.notes.label.text }}</label>
+              {{ form.notes(class="form-control", rows=4, placeholder="Special requests or notes") }}
+            </div>
+  
+            <button type="submit" class="btn btn-primary">Book Now</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

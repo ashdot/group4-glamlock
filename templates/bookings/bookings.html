@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">My Bookings</h2>
+  {% if bookings %}
+    <div class="row g-4">
+      {% for booking in bookings %}
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="d-flex justify-content-between mb-2">
+              <div>
+                <h5 class="card-title mb-1">{{ booking.service_type|title }} Booking</h5>
+                <small class="text-muted">
+                  Status: 
+                  <span class="badge 
+                    {% if booking.status == 'pending' %}bg-warning
+                    {% elif booking.status == 'confirmed' %}bg-success
+                    {% elif booking.status == 'completed' %}bg-secondary
+                    {% else %}bg-info{% endif %}">
+                    {{ booking.status|title }}
+                  </span>
+                </small>
+              </div>
+              <div class="text-end">
+                <small>{{ booking.datetime.strftime('%d %b %Y, %I:%M %p') }}</small>
+              </div>
+            </div>
+            <hr>
+            <p class="mb-1"><strong>Artist:</strong> {{ booking.artist.user.first_name }} {{ booking.artist.user.last_name }} <span class="text-muted">({{ booking.artist.specialization }})</span></p>
+            {% if booking.notes %}
+            <p class="mb-0"><strong>Notes:</strong> {{ booking.notes }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info mt-4">
+      No bookings found. <a href="{{ url_for('bookings.book_appointment') }}">Book one now!</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

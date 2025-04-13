@@ -1,0 +1,3 @@
+Follow these steps: 
+    1.Please run this command in the terminal: "pip install -r requirements.txt".
+    2. Use app.py to run the code.
