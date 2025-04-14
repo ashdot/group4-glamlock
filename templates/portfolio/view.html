@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>My Portfolio</h2>
+    <div class="card">
+        {% if portfolio.url %}
+        <img src="{{ url_for('static', filename='uploads/' + portfolio.url) }}" 
+             class="card-img-top portfolio-image" 
+             alt="{{ portfolio.portfolioName }}">
+        {% endif %}
+        <div class="card-body">
+            <h3 class="card-title">{{ portfolio.portfolioName }}</h3>
+            <p class="card-text">{{ portfolio.description }}</p>
+            <a href="{{ url_for('portfolio.create_portfolio') }}" 
+               class="btn btn-primary">
+                Update Portfolio
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
