@@ -1,5 +1,7 @@
 from flask import current_app
 from extensions import db, bcrypt
+print("Imported successfully!")
+
 from flask_login import UserMixin
 from datetime import datetime
 from itsdangerous import URLSafeTimedSerializer as Serializer
