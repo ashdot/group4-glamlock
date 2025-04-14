@@ -62,6 +62,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('bookings.artist_bookings') }}">Bookings</a></li>
                     {% else %}
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('recommendations.view_recommendations') }}">Recommendations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('events.view_events') }}">Events</a></li>
                     {% endif %}
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a></li>
                 {% else %}

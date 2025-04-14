@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask import Blueprint, abort, render_template, redirect, request, url_for, flash
 from flask_login import login_required, current_user
-from models.models import Event, db
+from models.models import Booking, Event, db
 
 events_bp = Blueprint('events', __name__)
 
@@ -91,3 +91,22 @@ def delete_event(event_id):
         flash(f"Error deleting event: {str(e)}", "error")
 
     return redirect(url_for('events.manage_events'))
+
+
+@events_bp.route('/event')
+@login_required
+def view_events():
+    if not current_user.client_profile:
+        return redirect(url_for('home'))
+    
+    # See events from artists the client has booked
+    client_bookings = Booking.query.filter_by(user_id=current_user.id).all()
+    artist_ids = {b.artist_id for b in client_bookings}
+    
+    # Added distinct() to avoid duplicates
+    published_events = Event.query.filter(
+        Event.artist_id.in_(artist_ids)
+    ).distinct(Event.id).all()  # For PostgreSQL
+    
+    return render_template('events/client_events.html', 
+                         events=published_events)
